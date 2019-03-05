@@ -10,10 +10,11 @@ let State = Snake.initialState();
 const Matrix = {
     make: table => rep(rep('.')(table.cols))(table.rows),
     set: val => pos => adjust(pos.y)(adjust(pos.x)(k(val))),
-    addSnake: state => pipe(...Map(Matrix.set('X'))(state.snake)),
+    addSnake: state => pipe(...map(Matrix.set('X'))(state.snake)),
     addApple: state => Matrix.set('o')(state.apple),
     addCrash: state => state.snake.length == 0 ? map(map(k('#'))) : id,
-    toString: state => pipe(
+    toString: xsxs => xsxs.map(xs => xs.join(' ')).join('\r\n'),
+    fromState: state => pipe(
         Matrix.make,
         Matrix.addSnake(state),
         Matrix.addApple(state),
@@ -41,7 +42,7 @@ process.stdin.on('keypress', (str, key) => {
         case 'S':
         case 'J':
         case 'DOWN':
-            State = Snake.enqueue(State, Snake.EAST);
+            State = Snake.enqueue(State, Snake.SOUTH);
             break;
         case 'D':
         case 'L':
