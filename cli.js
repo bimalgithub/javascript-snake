@@ -1,9 +1,10 @@
 const readline = require('readline');
-const snake = require('./snake');
-const base = require('./base');;
+const Snake = require('./snake');
+const base = require('./base');
+Object.getOwnPropertyNames(base).map(p => global[p] = base[p]);
 
 // Mutable state
-let snake = Snake.initialState();
+let State = Snake.initialState();
 
 // Matix operations
 const Matrix = {
